@@ -1,0 +1,35 @@
+CREATE TABLE Family (
+    Person INT, 
+    Father INT, 
+    Mother INT, 
+    PRIMARY KEY(Person)
+);
+
+INSERT INTO Family VALUES(1, 5, 4);
+INSERT INTO Family VALUES(2, 5, 4);
+INSERT INTO Family VALUES(3, 5, 4);
+INSERT INTO Family VALUES(6, 8, 2);
+INSERT INTO Family VALUES(7, 8, 2);
+
+SELECT * FROM Family;
+
+SELECT Person
+FROM Family
+WHERE Father = 5 AND Mother = 4;
+
+SELECT Person
+FROM Family
+WHERE Father = 8 AND Mother = 2;
+
+GO
+CREATE FUNCTION Children (@Mother int)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @op INT;
+    SELECT @op = Person FROM Family WHERE @Mother <= 4;
+    RETURN @op;
+END
+GO
+
+SELECT dbo.Children(2);
